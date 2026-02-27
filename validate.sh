@@ -2,8 +2,8 @@
 
 CONTAINER_NAME="temp_ml_container"
 
-VALID_JSON='{"feature1":5.1,"feature2":3.5,"feature3":1.4,"feature4":0.2}'
-INVALID_JSON='{"feature1":"wrong"}'
+VALID_JSON='{"features":[5.1,3.5,1.4,0.2]}'
+INVALID_JSON='{"features":"wrong"}'
 
 echo "Sending Valid Request..."
 
