@@ -1,14 +1,16 @@
-API_URL="http://localhost:8000/predict"
 #!/bin/bash
 
 CONTAINER_NAME="temp_ml_container"
+
+VALID_JSON='{"feature1":5.1,"feature2":3.5,"feature3":1.4,"feature4":0.2}'
+INVALID_JSON='{"feature1":"wrong"}'
 
 echo "Sending Valid Request..."
 
 VALID_RESPONSE=$(docker exec $CONTAINER_NAME curl -s -w "\n%{http_code}" \
 -X POST http://localhost:8000/predict \
 -H "Content-Type: application/json" \
--d @tests/valid.json)
+-d "$VALID_JSON")
 
 VALID_BODY=$(echo "$VALID_RESPONSE" | head -n1)
 VALID_STATUS=$(echo "$VALID_RESPONSE" | tail -n1)
@@ -33,7 +35,7 @@ echo "Sending Invalid Request..."
 INVALID_RESPONSE=$(docker exec $CONTAINER_NAME curl -s -w "\n%{http_code}" \
 -X POST http://localhost:8000/predict \
 -H "Content-Type: application/json" \
--d @tests/invalid.json)
+-d "$INVALID_JSON")
 
 INVALID_BODY=$(echo "$INVALID_RESPONSE" | head -n1)
 INVALID_STATUS=$(echo "$INVALID_RESPONSE" | tail -n1)
