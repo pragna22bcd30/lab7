@@ -1,6 +1,6 @@
 #!/bin/bash
 
-API_URL="http://localhost:8000/predict"
+API_URL="http://localhost:9000/predict"
 
 echo "Sending Valid Request..."
 VALID_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST $API_URL \
