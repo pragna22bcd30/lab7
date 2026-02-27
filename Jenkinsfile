@@ -16,7 +16,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 9000:8000 --name $CONTAINER_NAME $IMAGE_NAME'
+                sh 'docker run -d --name $CONTAINER_NAME $IMAGE_NAME'
             }
         }
 
@@ -26,7 +26,7 @@ pipeline {
                     timeout(time: 1, unit: 'MINUTES') {
                         waitUntil {
                             def status = sh(
-                                script: "curl -s http://localhost:9000/health || true",
+                                script: "docker exec $CONTAINER_NAME curl -s http://localhost:8000/health || true",
                                 returnStatus: true
                             )
                             return (status == 0)

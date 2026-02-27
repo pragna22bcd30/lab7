@@ -1,9 +1,12 @@
+API_URL="http://localhost:8000/predict"
 #!/bin/bash
 
-API_URL="http://localhost:9000/predict"
+CONTAINER_NAME="temp_ml_container"
 
 echo "Sending Valid Request..."
-VALID_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST $API_URL \
+
+VALID_RESPONSE=$(docker exec $CONTAINER_NAME curl -s -w "\n%{http_code}" \
+-X POST http://localhost:8000/predict \
 -H "Content-Type: application/json" \
 -d @tests/valid.json)
 
@@ -27,7 +30,8 @@ echo "Valid request passed."
 
 echo "Sending Invalid Request..."
 
-INVALID_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST $API_URL \
+INVALID_RESPONSE=$(docker exec $CONTAINER_NAME curl -s -w "\n%{http_code}" \
+-X POST http://localhost:8000/predict \
 -H "Content-Type: application/json" \
 -d @tests/invalid.json)
 
