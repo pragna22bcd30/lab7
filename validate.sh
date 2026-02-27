@@ -23,8 +23,8 @@ if [ "$VALID_STATUS" != "200" ]; then
   exit 1
 fi
 
-if [[ $VALID_BODY != *"prediction"* ]]; then
-  echo "Prediction field missing!"
+if [[ $VALID_BODY != *"wine_quality"* ]]; then
+  echo "wine_quality field missing!"
   exit 1
 fi
 
